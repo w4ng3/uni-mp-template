@@ -6,7 +6,7 @@ scroll-view {
 }
 
 button::after {
-  border: none;
+  border: none !important; // 去掉button 组件自带的边框线
 }
 
 swiper,
