@@ -2,7 +2,7 @@ import { defineConfig } from 'vite'
 import uni from '@dcloudio/vite-plugin-uni'
 import WindiCSS from 'vite-plugin-windicss'
 import MiniProgramTailwind from '@dcasia/mini-program-tailwind-webpack-plugin/rollup'
-
+import AutoImport from 'unplugin-auto-import/vite' // 自动导入Api
 // https://vitejs.dev/config/
 export default defineConfig({
   build: {
@@ -17,6 +17,17 @@ export default defineConfig({
         fileExtensions: ['vue', 'js', 'ts'] // 同时启用扫描vue/js/ts
       }
     }),
-    MiniProgramTailwind()
+    MiniProgramTailwind(),
+    AutoImport({
+      include: [
+        /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
+        /\.vue$/,
+        /\.vue\?vue/ // .vue
+      ],
+      imports: ['vue', 'uni-app', 'pinia'],
+      dts: 'src/types/auto-import.d.ts',
+      // 指定文件夹位置， 加 /** 可遍历子目录
+      dirs: ['src/hooks', 'src/stores', 'src/utils/**']
+    })
   ]
 })
