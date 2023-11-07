@@ -7,7 +7,21 @@ const memberStore = useMemberStore()
 <template>
   <view class="my">
     <view>用户信息：{{ memberStore.profile }}</view>
-    <button @tap="memberStore.setProfile({ nickname: '王東' })" size="mini" plain type="primary">
+    <button
+      @tap="
+        memberStore.setProfile({
+          nickname: '王東',
+          id: 0,
+          avatar: '',
+          account: '',
+          mobile: '',
+          token: ''
+        })
+      "
+      size="mini"
+      plain
+      type="primary"
+    >
       保存用户信息
     </button>
     <button @tap="memberStore.clearProfile()" size="mini" plain type="warn">清理用户信息</button>

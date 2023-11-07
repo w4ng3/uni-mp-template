@@ -27,7 +27,7 @@ export default defineConfig({
       imports: ['vue', 'uni-app', 'pinia'],
       dts: 'src/types/auto-import.d.ts',
       // 指定文件夹位置， 加 /** 可遍历子目录
-      dirs: ['src/hooks', 'src/stores', 'src/utils/**']
+      dirs: ['src/hooks', 'src/stores', 'src/utils/**', 'src/api/**']
     })
   ]
 })
