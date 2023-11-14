@@ -10,6 +10,7 @@ export function createApp() {
 
   app.use(pinia)
   return {
-    app
+    app,
+    pinia // 此处必须将 Pinia 返回
   }
 }
