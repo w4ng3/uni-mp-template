@@ -5,7 +5,8 @@ import ServicePanel from './components/ServicePanel.vue'
 import { onLoad } from '@dcloudio/uni-app'
 import type {
   SkuPopupLocaldata,
-  SkuPopupInstance
+  SkuPopupInstance,
+  SkuPopupEvent
 } from '@/components/vk-data-goods-sku-popup/vk-data-goods-sku-popup'
 // 获取屏幕边界到安全区域距离
 const { safeAreaInsets } = uni.getSystemInfoSync()
@@ -96,14 +97,21 @@ const localdata = ref({} as SkuPopupLocaldata)
 const skuPopuRef = ref<SkuPopupInstance>()
 // 计算被选中的值
 const selectArrText = computed(() => {
-  console.log('object :>> ', '????----')
   return skuPopuRef.value?.selectArr?.join(' ').trim() || '请选择商品规格'
 })
+
+// 加入购物车
+const onAddCart = async (ev: SkuPopupEvent) => {
+  await postMemberCartAPI({ attrsText: selectArrText.value, count: ev.buy_num, id: ev.goods_id })
+  uni.showToast({ title: '添加成功' })
+  isShowSku.value = false
+}
 </script>
 
 <template>
   <!-- SKU弹窗组件 -->
   <vk-data-goods-sku-popup
+    @add-cart="onAddCart"
     v-model="isShowSku"
     :mode="mode"
     :localdata="localdata"
